@@ -1,0 +1,33 @@
+Production-Efficient Transformer Variants
+Performer (EfficientPerformer): Utilizes Positive Orthogonal Random Features (FAVOR+) to approximate softmax attention, achieving linear complexity 
+
+
+
+ with respect to sequence length. Ideal for high-throughput tasks with very long sequences.
+Longformer: Employs a combination of sliding window (local) and global attention to handle long documents (up to 16K+ tokens) with linear memory complexity. It is ideal for document-level understanding.
+Reformer: Leverages Locality-Sensitive Hashing (LSH) to group similar vectors, reducing attention complexity to 
+
+
+
+
+. It also uses reversible residual layers to save memory, allowing deeper networks with smaller footprints.
+TinyBERT: A student model produced via distillation from a larger BERT model. It has fewer layers and parameters, providing significant speedups and memory reduction while maintaining close to BERT-level accuracy.
+Llama 2 (Small variants): While large, Llama 2 (specifically 7B or fine-tuned variants like Alpaca/Orca) can be optimized using modern techniques (quantization, PagedAttention) to achieve efficient inference, outperforming older models on reasoning tasks. 
+Emergent Mind
+Emergent Mind
+ +7
+Optimization Techniques
+Quantization: Reducing weight precision from FP32 to INT8 or FP16 drastically lowers memory usage and speeds up inference on modern GPUs, reducing energy consumption by up to 29%.
+Knowledge Distillation: Training a smaller "student" model (like TinyBERT) to mimic a larger "teacher" model (BERT) reduces parameter count while preserving performance.
+Pruning: Removing redundant weights or attention heads reduces the model size and FLOPs needed for inference.
+PagedAttention & KV Cache: Used in Llama 2 deployment to manage key-value cache memory efficiently, increasing throughput by over 2x compared to traditional batching. 
+International Journal of Computer Applications
+International Journal of Computer Applications
+ +4
+Deployment Architecture
+Inference Backends: ONNX Runtime is considered one of the best for deploying transformers at scale. NVIDIA TensorRT is used for GPU-specific acceleration.
+Containerization & Orchestration: Deploying models via Docker/Kubernetes, particularly using Amazon SageMaker endpoints with specialized Large Model Inference (LMI) containers for Llama 2.
+Edge Deployment: Using Quantization-Aware Training (QAT) to deploy models on resource-constrained devices, often requiring models like TinyBERT or DistilBERT. 
+Emerging Publishing Society
+Emerging Publishing Society
+ +4
